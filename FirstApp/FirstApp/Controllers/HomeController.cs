@@ -35,9 +35,53 @@ namespace FirstApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult Sample()
+        {
+            var customerList = new List<CustomerViewModel>
+            {
+                new CustomerViewModel
+                {
+                    FirstName = "John",
+                    LastName = "Doe",
+                    Address = "New York",
+                    Age = 30,
+                    Id = Guid.NewGuid(),
+                    BirthDate = new DateTime(1990, 5, 6)
+                },
+                new CustomerViewModel
+                {
+                    FirstName = "Jane",
+                    LastName = "Boe",
+                    Address = "Canada",
+                    Age = 25,
+                    Id = Guid.NewGuid(),
+                    BirthDate = new DateTime(1980, 2, 1)
+                },
+                new CustomerViewModel
+                {
+                    FirstName = "Alican",
+                    LastName = "Karacan",
+                    Address = "İstanbul",
+                    Age = 29,
+                    Id = Guid.NewGuid(),
+                    BirthDate = new DateTime(1988, 8, 3)
+
+                }
+            };
+
+            var isNewYork = customerList.Where(x => x.Address.Contains("New York")).Any();
+
+            //if (isNewYork)
+            //{
+            //    return Ok(new SuccessViewModel { Message="New Yorklu eleman var...", StatusCode=200});
+            //}
+            //else
+                return View(customerList);
+        }
+
         public IActionResult BadReq()
         {
-            return BadRequest(new { Mesaj = "Aradığın sayfayı bulamadık...."});
+            return BadRequest(new { Mesaj = "Aradığın sayfayı bulamadık...." });
         }
 
         public IActionResult Success()

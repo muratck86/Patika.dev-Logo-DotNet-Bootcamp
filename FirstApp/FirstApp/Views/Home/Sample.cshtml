@@ -1,0 +1,13 @@
+﻿@model List<CustomerViewModel>
+    
+    @foreach(var item in Model)
+    {
+    <p>@item.FirstName @item.LastName</p>
+    <p>@item.Address, @item.Age</p>
+    <p>@item.BirthDate.Date.ToString("dd/MM/yyyy")</p>
+    <p>@item.Id</p>
+    }
+
+
+
+
