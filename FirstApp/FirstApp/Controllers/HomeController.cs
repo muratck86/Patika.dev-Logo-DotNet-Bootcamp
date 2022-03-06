@@ -64,7 +64,7 @@ namespace FirstApp.Controllers
                     Address = "İstanbul",
                     Age = 29,
                     Id = Guid.NewGuid(),
-                    BirthDate = new DateTime(1988, 8, 3)
+                    BirthDate = new DateTime(1968, 8, 3)
 
                 }
             };
