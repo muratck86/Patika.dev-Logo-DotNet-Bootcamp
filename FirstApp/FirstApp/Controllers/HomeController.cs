@@ -1,4 +1,5 @@
 ﻿using FirstApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -32,6 +33,36 @@ namespace FirstApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult BadReq()
+        {
+            return BadRequest(new { Mesaj = "Aradığın sayfayı bulamadık...."});
+        }
+
+        public IActionResult Success()
+        {
+            return Ok(new SuccessViewModel { StatusCode = 200, Message = "İşlem Başarılı." });
+        }
+
+        public IActionResult PageNotFound()
+        {
+            return NotFound();
+        }
+
+        public IActionResult ForbiddenPage()
+        {
+            return StatusCode(403, "Sunucu hatası, bu sayfaya erişim yasaklanmıştır.");
+        }
+
+        public IActionResult StatusKodlari()
+        {
+            return StatusCode(StatusCodes.Status202Accepted);
+        }
+
+        public IActionResult ServerError()
+        {
+            return StatusCode(StatusCodes.Status501NotImplemented);
         }
     }
 }
