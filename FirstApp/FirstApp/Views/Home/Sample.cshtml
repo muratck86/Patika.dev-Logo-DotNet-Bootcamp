@@ -1,13 +1,53 @@
-﻿@model List<CustomerViewModel>
-    
-    @foreach(var item in Model)
-    {
-    <p>@item.FirstName @item.LastName</p>
-    <p>@item.Address, @item.Age</p>
-    <p>@item.BirthDate.Date.ToString("dd/MM/yyyy")</p>
-    <p>@item.Id</p>
-    <p>@item.Description</p>
-    }
+﻿@model CustomerViewModel
+
+@if (Model != null)
+{
+    <p>@Model?.FirstName @Model?.LastName.ToUpper()<br />
+@Model?.EmailAddress @Model?.Age<br />
+@Model?.Id<br />
+@Model?.Password</p><hr />
+}
+
+@*Alternative 1 for textbox*@
+@*@Html.EditorFor(x => x.FirstName, new {@class ="form-control"})*@
+
+@*Alternative 2 for textbox*@
+@*<input type="text" id="firstName" class="form-control" value="" asp-for="FirstName" />
+    <input type="text" id="lastName" class="form-control" value="" asp-for="LastName" />
+    <input type="text" id="address" class="form-control" value="" asp-for="Address" />
+    <input type="number" id="age" class="form-control" value="" asp-for="Age" />
+    <input type="datetime" id="bithDate" class="form-control" value="" asp-for="BirthDate" />*@
+
+<form id="customerForm" method="post">
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Age" class="control-label"></label>
+        <input asp-for="Age" class="form-control" value="18" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EmailAddress" class="control-label"></label>
+        <input asp-for="EmailAddress" class="form-control" />
+        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Submit" />
+</form>
+
+
 
 
 

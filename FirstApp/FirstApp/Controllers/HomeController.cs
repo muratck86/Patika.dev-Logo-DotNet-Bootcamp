@@ -37,46 +37,18 @@ namespace FirstApp.Controllers
 
         public IActionResult Sample()
         {
-            var customerList = new List<CustomerViewModel>
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Sample(CustomerViewModel newCustomer)
+        {
+            if(ModelState.IsValid)
             {
-                new CustomerViewModel
-                {
-                    FirstName = "John",
-                    LastName = "Doe",
-                    Address = "New York",
-                    Age = 30,
-                    Id = Guid.NewGuid(),
-                    BirthDate = new DateTime(1990, 5, 6)
-                },
-                new CustomerViewModel
-                {
-                    FirstName = "Jane",
-                    LastName = "Boe",
-                    Address = "Canada",
-                    Age = 25,
-                    Id = Guid.NewGuid(),
-                    BirthDate = new DateTime(1980, 2, 1)
-                },
-                new CustomerViewModel
-                {
-                    FirstName = "Alican",
-                    LastName = "Karacan",
-                    Address = "İstanbul",
-                    Age = 29,
-                    Id = Guid.NewGuid(),
-                    BirthDate = new DateTime(1968, 8, 3)
-
-                }
-            };
-
-            var isNewYork = customerList.Where(x => x.Address.Contains("New York")).Any();
-
-            //if (isNewYork)
-            //{
-            //    return Ok(new SuccessViewModel { Message="New Yorklu eleman var...", StatusCode=200});
-            //}
-            //else
-                return View(customerList);
+                return View(newCustomer);
+            }
+            //return RedirectToAction("Error", ModelState);
+            return View();
         }
 
         public IActionResult BadReq()
