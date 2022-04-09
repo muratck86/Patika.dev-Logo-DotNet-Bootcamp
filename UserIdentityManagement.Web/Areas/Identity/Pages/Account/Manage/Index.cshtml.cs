@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -50,12 +52,14 @@ namespace UserIdentityManagement.Web.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var name = user.Name;
             var lastName = user.LastName;
+            var profilePicture = user.ProfilePicture;
 
 
             Input = new InputModel
             {
                 Name = name,
                 LastName = lastName,
+                ProfilePicture = profilePicture,
                 UserName = userName,
                 PhoneNumber = phoneNumber
             };
@@ -131,9 +135,21 @@ namespace UserIdentityManagement.Web.Areas.Identity.Pages.Account.Manage
                 await _userManager.UpdateAsync(user);
             }
 
+            if (Request.Form.Files.Count > 0)
+            {
+                IFormFile file = Request.Form.Files.SingleOrDefault();
+                using(var stream = new MemoryStream())
+                {
+                    await file.CopyToAsync(stream);
+                    user.ProfilePicture = stream.ToArray();
+                }
+                await _userManager.UpdateAsync(user);
+            }
+
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
+
         }
     }
 }
