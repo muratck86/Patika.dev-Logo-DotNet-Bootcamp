@@ -68,7 +68,7 @@ namespace UserIdentityManagement.Web.Data.Migrations
 
             migrationBuilder.RenameTable(
                 name: "AspNetUsers",
-                newName: "User",
+                newName: "Users",
                 newSchema: "Identity");
 
             migrationBuilder.RenameTable(
@@ -88,7 +88,7 @@ namespace UserIdentityManagement.Web.Data.Migrations
 
             migrationBuilder.RenameTable(
                 name: "AspNetRoles",
-                newName: "Role",
+                newName: "Roles",
                 newSchema: "Identity");
 
             migrationBuilder.RenameTable(
@@ -127,9 +127,9 @@ namespace UserIdentityManagement.Web.Data.Migrations
                 columns: new[] { "UserId", "LoginProvider", "Name" });
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_User",
+                name: "PK_Users",
                 schema: "Identity",
-                table: "User",
+                table: "Users",
                 column: "Id");
 
             migrationBuilder.AddPrimaryKey(
@@ -151,9 +151,9 @@ namespace UserIdentityManagement.Web.Data.Migrations
                 column: "Id");
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_Role",
+                name: "PK_Roles",
                 schema: "Identity",
-                table: "Role",
+                table: "Roles",
                 column: "Id");
 
             migrationBuilder.AddPrimaryKey(
@@ -163,62 +163,62 @@ namespace UserIdentityManagement.Web.Data.Migrations
                 column: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_RoleClaims_Role_RoleId",
+                name: "FK_RoleClaims_Roles_RoleId",
                 schema: "Identity",
                 table: "RoleClaims",
                 column: "RoleId",
                 principalSchema: "Identity",
-                principalTable: "Role",
+                principalTable: "Roles",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserClaims_User_UserId",
+                name: "FK_UserClaims_Users_UserId",
                 schema: "Identity",
                 table: "UserClaims",
                 column: "UserId",
                 principalSchema: "Identity",
-                principalTable: "User",
+                principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserLogins_User_UserId",
+                name: "FK_UserLogins_Users_UserId",
                 schema: "Identity",
                 table: "UserLogins",
                 column: "UserId",
                 principalSchema: "Identity",
-                principalTable: "User",
+                principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserRoles_Role_RoleId",
+                name: "FK_UserRoles_Roles_RoleId",
                 schema: "Identity",
                 table: "UserRoles",
                 column: "RoleId",
                 principalSchema: "Identity",
-                principalTable: "Role",
+                principalTable: "Roles",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserRoles_User_UserId",
+                name: "FK_UserRoles_Users_UserId",
                 schema: "Identity",
                 table: "UserRoles",
                 column: "UserId",
                 principalSchema: "Identity",
-                principalTable: "User",
+                principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserTokens_User_UserId",
+                name: "FK_UserTokens_Users_UserId",
                 schema: "Identity",
                 table: "UserTokens",
                 column: "UserId",
                 principalSchema: "Identity",
-                principalTable: "User",
+                principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -226,32 +226,32 @@ namespace UserIdentityManagement.Web.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_RoleClaims_Role_RoleId",
+                name: "FK_RoleClaims_Roles_RoleId",
                 schema: "Identity",
                 table: "RoleClaims");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_UserClaims_User_UserId",
+                name: "FK_UserClaims_Users_UserId",
                 schema: "Identity",
                 table: "UserClaims");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_UserLogins_User_UserId",
+                name: "FK_UserLogins_Users_UserId",
                 schema: "Identity",
                 table: "UserLogins");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_UserRoles_Role_RoleId",
+                name: "FK_UserRoles_Roles_RoleId",
                 schema: "Identity",
                 table: "UserRoles");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_UserRoles_User_UserId",
+                name: "FK_UserRoles_Users_UserId",
                 schema: "Identity",
                 table: "UserRoles");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_UserTokens_User_UserId",
+                name: "FK_UserTokens_Users_UserId",
                 schema: "Identity",
                 table: "UserTokens");
 
@@ -259,6 +259,11 @@ namespace UserIdentityManagement.Web.Data.Migrations
                 name: "PK_UserTokens",
                 schema: "Identity",
                 table: "UserTokens");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Users",
+                schema: "Identity",
+                table: "Users");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_UserRoles",
@@ -276,24 +281,24 @@ namespace UserIdentityManagement.Web.Data.Migrations
                 table: "UserClaims");
 
             migrationBuilder.DropPrimaryKey(
-                name: "PK_User",
+                name: "PK_Roles",
                 schema: "Identity",
-                table: "User");
+                table: "Roles");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_RoleClaims",
                 schema: "Identity",
                 table: "RoleClaims");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Role",
-                schema: "Identity",
-                table: "Role");
-
             migrationBuilder.RenameTable(
                 name: "UserTokens",
                 schema: "Identity",
                 newName: "AspNetUserTokens");
+
+            migrationBuilder.RenameTable(
+                name: "Users",
+                schema: "Identity",
+                newName: "AspNetUsers");
 
             migrationBuilder.RenameTable(
                 name: "UserRoles",
@@ -311,19 +316,14 @@ namespace UserIdentityManagement.Web.Data.Migrations
                 newName: "AspNetUserClaims");
 
             migrationBuilder.RenameTable(
-                name: "User",
+                name: "Roles",
                 schema: "Identity",
-                newName: "AspNetUsers");
+                newName: "AspNetRoles");
 
             migrationBuilder.RenameTable(
                 name: "RoleClaims",
                 schema: "Identity",
                 newName: "AspNetRoleClaims");
-
-            migrationBuilder.RenameTable(
-                name: "Role",
-                schema: "Identity",
-                newName: "AspNetRoles");
 
             migrationBuilder.RenameIndex(
                 name: "IX_UserRoles_RoleId",
@@ -351,6 +351,11 @@ namespace UserIdentityManagement.Web.Data.Migrations
                 columns: new[] { "UserId", "LoginProvider", "Name" });
 
             migrationBuilder.AddPrimaryKey(
+                name: "PK_AspNetUsers",
+                table: "AspNetUsers",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
                 name: "PK_AspNetUserRoles",
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" });
@@ -366,18 +371,13 @@ namespace UserIdentityManagement.Web.Data.Migrations
                 column: "Id");
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_AspNetUsers",
-                table: "AspNetUsers",
+                name: "PK_AspNetRoles",
+                table: "AspNetRoles",
                 column: "Id");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_AspNetRoleClaims",
                 table: "AspNetRoleClaims",
-                column: "Id");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_AspNetRoles",
-                table: "AspNetRoles",
                 column: "Id");
 
             migrationBuilder.AddForeignKey(
