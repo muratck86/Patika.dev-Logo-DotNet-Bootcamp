@@ -23,7 +23,6 @@ namespace UserIdentityManagement.Web.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
-        public string Username { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -33,6 +32,13 @@ namespace UserIdentityManagement.Web.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            public string Name { get; set; }
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+            [Display(Name="User Name")]
+            public string UserName { get; set; }
+            [Display(Name="Profile Photo")]
+            public byte[] ProfilePicture { get; set; }
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -42,11 +48,15 @@ namespace UserIdentityManagement.Web.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var name = user.Name;
+            var lastName = user.LastName;
 
-            Username = userName;
 
             Input = new InputModel
             {
+                Name = name,
+                LastName = lastName,
+                UserName = userName,
                 PhoneNumber = phoneNumber
             };
         }
@@ -86,6 +96,39 @@ namespace UserIdentityManagement.Web.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
+            }
+            var userName = user.UserName;
+            var name = user.Name;
+            var lastName = user.LastName;
+
+            if (userName != Input.UserName)
+            {
+                var remainingChangeLimit = user.UsernameChangeLimit;
+
+                if (remainingChangeLimit == 0)
+                {
+                    StatusMessage = "User Name change limit reached.";
+                    return RedirectToPage();
+                }
+                remainingChangeLimit -= 1;
+                user.UsernameChangeLimit = remainingChangeLimit;
+                user.UserName = Input.UserName;
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    StatusMessage = "Cannot change user name, possibly due to dublicate user names.";
+                    return RedirectToPage();
+                }
+            }
+            if (name != Input.Name)
+            {
+                user.Name = Input.Name;
+                await _userManager.UpdateAsync(user);
+            }
+            if (lastName != Input.LastName)
+            {
+                user.LastName = Input.LastName;
+                await _userManager.UpdateAsync(user);
             }
 
             await _signInManager.RefreshSignInAsync(user);
