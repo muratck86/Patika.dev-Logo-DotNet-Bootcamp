@@ -34,18 +34,19 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">Profile Picture
-                    <label asp-for="Input.ProfilePicture">
+            <div>
+                <label asp-for="Input.ProfilePicture"></label>
+                <div class="form-group">
+                    <label>
                         @if(Model.Input.ProfilePicture != null)
                         {
-                                                    <img id="profilePicture" style="width:250px; height:300px; object-fit:cover; cursor:pointer"
-                            src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))" alt="Click to upload a profile pic.">
+                            <img id="profilePicture" style="width:250px; height:300px; object-fit:cover; cursor:pointer"
+                                src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))" alt="Click to upload a profile pic.">
                         }
                         else
                         {
-                                                    <img id="profilePicture" style="width:250px; height:300px; object-fit:cover; cursor:pointer"
-                            src="~/defaultProfilePic.jpg">
+                            <img id="profilePicture" style="width:250px; height:300px; object-fit:cover; cursor:pointer"
+                                src="~/defaultProfilePic.jpg">
                         }
                         <input type="file" accept=".png, .gif, .jpg, .jpeg, .bmp" asp-for="Input.ProfilePicture" style="display:None"
                         onchange="document.getElementById('profilePicture').src=window.URL.createObjectURL(this.files[0])"/>
