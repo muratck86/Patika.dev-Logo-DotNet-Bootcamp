@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -47,6 +48,11 @@ namespace UserIdentityManagement.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            public string Name { get; set; }
+            [Required]
+            [Display(Name ="Last Name")]
+            public string LastName { get; set; }
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -75,7 +81,16 @@ namespace UserIdentityManagement.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                //var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var mail = new MailAddress(Input.Email);
+                var user = new ApplicationUser
+                {
+                    Email = Input.Email,
+                    UserName = mail.User, //Get user name from email address (using the left part of @ char)
+                    Name = Input.Name,
+                    LastName = Input.LastName
+
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
