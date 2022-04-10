@@ -28,6 +28,7 @@ namespace UserIdentityManagement.Web
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await ContextSeed.SeedRoleAsync(userManager, roleManager);
+                    await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
                 }
                 catch (Exception ex)
                 {
